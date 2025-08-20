@@ -28,9 +28,14 @@ def main():
             isbn = input("Aranacak kitabın ISBN'i: ")
             found_book = library.find_book(isbn)
             if found_book:
-                print("Kitap bulundu:", found_book)
+                print("Kitap yerel kütüphanede bulundu:", found_book)
             else:
-                print("Kitap bulunamadı.")
+                # Kitap yerel kütüphanede yoksa, API'den çekmeye çalış
+                found_book = library.get_book_from_api(isbn)
+                if found_book:
+                    print("Kitap API'de bulundu:", found_book)
+                else:
+                    print("Kitap bulunamadı.")
         elif choice == '5':
             print("Çıkış yapılıyor...")
             break
